@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-ROOT setup script for Debian-based distributions.
+ROOT setup script for Ubuntu-based distributions.
 
 The script clones the ROOT git repository (latest-stable branch) and
 compiles ROOT.
@@ -11,6 +11,8 @@ import re
 import argparse
 import subprocess
 import shutil
+
+# import lsb_release
 
 SCRIPT_PATH = os.path.abspath(__file__)
 SCRIPT_DIR = os.path.dirname(SCRIPT_PATH)
@@ -91,6 +93,11 @@ if __name__ == "__main__":
             shutil.rmtree("./install")
     os.makedirs("./build", exist_ok=True)
     os.makedirs("./install", exist_ok=True)
+
+    # release = lsb_release.get_distro_information()['RELEASE']
+    # print(f"Checking Ubuntu version... {release} found")
+    # TODO If any dependency package changes name across releases, use
+    # the lines above to select a dependency list based on the release
 
     print("Checking dependencies")
     packages = run("apt", "list", "--installed", capture=True)
